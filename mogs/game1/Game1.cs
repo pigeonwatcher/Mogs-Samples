@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace ECS
+namespace Mogs
 {
     public partial class Game1 : Game
     {
@@ -13,6 +13,8 @@ namespace ECS
         public SystemManager SystemManager { get; private set; } 
         public ServiceManager ServiceManager { get; private set; }
         public EntityManager EntityManager { get; private set; }
+        public SceneManager SceneManager { get; private set; }
+        public UIManager UIManager { get; private set; }
 
         private EntityRenderSystem entityRenderSystem;
         private HungerSystem hungerSystem;
@@ -23,10 +25,9 @@ namespace ECS
 
         private SaveGameService saveGameService;
         private IInputService inputService;
-        private UIManagementService uiManagementService; 
-        private SceneManagementService sceneManagementService; 
         private InventoryService inventoryService;
         private ShopService shopService;
+        private CafeService cafeService;
         private CoffeeMachineService coffeeMachineService;
         private PlayerCatService playerCatService;
         private PalService palService;
@@ -35,6 +36,7 @@ namespace ECS
         private HomeScene homeScene;
         private ExploreScene exploreScene;
         private ShopScene shopScene;
+        private CafeScene cafeScene;
         private HubMenuScene hubMenuScene;
         private CafeProgressScene cafeProgressScene;
         private ShopProgressScene shopProgressScene;
@@ -50,14 +52,15 @@ namespace ECS
             Resources = new Resources(graphics, Content);
             SystemManager = new SystemManager();
             ServiceManager = new ServiceManager();
+            SceneManager = new SceneManager();
+            EntityManager = new EntityManager();
+            UIManager = new UIManager();
 
             saveGameService = new SaveGameService();
             inputService = new InputService();
-            sceneManagementService = new SceneManagementService();
-            EntityManager = new EntityManager();
-            uiManagementService = new UIManagementService();
             inventoryService = new InventoryService();
             shopService = new ShopService(inventoryService);
+            cafeService = new CafeService(inventoryService);
             coffeeMachineService = new CoffeeMachineService(inventoryService);
             playerCatService = new PlayerCatService();
             palService = new PalService(EntityManager, coffeeMachineService, inventoryService);
@@ -89,8 +92,8 @@ namespace ECS
 
             ServiceManager.AddService(saveGameService);
             ServiceManager.AddService(EntityManager);
-            ServiceManager.AddService(sceneManagementService);
-            ServiceManager.AddService(uiManagementService);
+            ServiceManager.AddService(SceneManager);
+            ServiceManager.AddService(UIManager);
             ServiceManager.AddService(inventoryService);
             ServiceManager.AddService(shopService);
             ServiceManager.AddService(cafeService);
@@ -98,16 +101,16 @@ namespace ECS
             ServiceManager.AddService(playerCatService);
             ServiceManager.AddService(palService);
 
-            sceneManagementService.AddScene(mainMenuScene);
-            sceneManagementService.AddScene(homeScene);
-            sceneManagementService.AddScene(exploreScene);
-            sceneManagementService.AddScene(shopScene);
-            sceneManagementService.AddScene(cafeScene);
-            sceneManagementService.AddScene(hubMenuScene);
-            sceneManagementService.AddScene(cafeProgressScene);
-            sceneManagementService.AddScene(shopProgressScene);
-            sceneManagementService.AddScene(accessoriesScene);
-            sceneManagementService.AddScene(catalogueScene);
+            SceneManager.AddScene(mainMenuScene);
+            SceneManager.AddScene(homeScene);
+            SceneManager.AddScene(exploreScene);
+            SceneManager.AddScene(shopScene);
+            SceneManager.AddScene(cafeScene);
+            SceneManager.AddScene(hubMenuScene);
+            SceneManager.AddScene(cafeProgressScene);
+            SceneManager.AddScene(shopProgressScene);
+            SceneManager.AddScene(accessoriesScene);
+            SceneManager.AddScene(catalogueScene);
 
             EntityManager.RegisterService<PlayerCat>(playerCatService);
             EntityManager.RegisterSystem<PlayerCat>(emoteSystem);
@@ -133,13 +136,13 @@ namespace ECS
             inputService.OnRelease += ServiceManager.OnRelease;
             inputService.OnTouch += SystemManager.OnTouch;
             inputService.OnRelease += SystemManager.OnRelease;
-            sceneManagementService.Initialise();
+            SceneManager.Initialise();
 
             base.Initialize();
 
             entityRenderSystem.Initialise();
-            sceneManagementService.SetFadeScreen(GraphicsDevice);
-            sceneManagementService.ChangeScene<MainMenuScene>();
+            SceneManager.SetFadeScreen(GraphicsDevice);
+            SceneManager.ChangeScene<MainMenuScene>();
         }
 
         protected override void LoadContent()
@@ -153,6 +156,8 @@ namespace ECS
             inputService.Update(); 
             ServiceManager.Update(gameTime);
             SystemManager.Update(gameTime);
+            SceneManager.Update(gameTime);
+            UIManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -166,6 +171,8 @@ namespace ECS
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Grid.ScaleMatrix);
             ServiceManager.Draw(spriteBatch);
             SystemManager.Draw(spriteBatch);
+            SceneManager.Draw(spriteBatch);
+            UIManager.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

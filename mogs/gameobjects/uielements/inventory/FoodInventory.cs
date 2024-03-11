@@ -9,18 +9,20 @@ using System.Threading.Tasks;
 public class FoodInventory : UIElement
 {
     private readonly PlayerCatService playerCatService;
+    private readonly PalService palService;
     private readonly InventoryService inventoryService;
-    private readonly UIManagementService uiService;
+    private readonly UIManager uiManager;
 
     private InteractiveInventory inventory;
 
-    public FoodInventory(PlayerCatService _playerCatService, InventoryService _inventoryService, UIManagementService _uiService)
+    public FoodInventory(PlayerCatService _playerCatService, PalService _palService, InventoryService _inventoryService, UIManager _uiManager)
     {
         SetLayer(Layer.UI_FOODINV);
 
         playerCatService = _playerCatService;
+        palService = _palService;
         inventoryService = _inventoryService;
-        uiService = _uiService;
+        uiManager = _uiManager;
     }
 
     public override void AddChild<T>(T child)
@@ -50,7 +52,7 @@ public class FoodInventory : UIElement
 
         base.Activate();
 
-        uiService.DeactivateUIElement<Toolbar>();
+        uiManager.DeactivateUIElement<Toolbar>();
 
         inventoryService.InventoryUpdated += Refresh;
     }
@@ -58,7 +60,7 @@ public class FoodInventory : UIElement
     public override void Deactivate()
     {
         base.Deactivate();
-        uiService.ActivateUIElement<Toolbar>();
+        uiManager.ActivateUIElement<Toolbar>();
 
         inventoryService.InventoryUpdated -= Refresh;
     }
@@ -73,6 +75,10 @@ public class FoodInventory : UIElement
                 {
                     inventoryService.RemoveItem(InventoryType.Food, inventory.ActiveItem.Index);
                 }
+            }
+            else if (palService.GetBounds().Contains(inputSystem.TouchPosition))
+            {
+                inventoryService.RemoveItem(InventoryType.Food, inventory.ActiveItem.Index);
             }
         }
 

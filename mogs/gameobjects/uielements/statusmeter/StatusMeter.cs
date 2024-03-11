@@ -1,12 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-public class StatusMeter : UIElement 
+public class StatusMeter : UIElement
 {
     private readonly PlayerCatService playerCatService;
     private readonly Texture2D uiAtlas;
@@ -80,14 +76,14 @@ public class StatusMeter : UIElement
             currentIcon = (currentIcon + 1) % icons.Count;
         }
 
-        for(int i = 0; i < animatedIcons.Length; i++)
+        for (int i = 0; i < animatedIcons.Length; i++)
         {
             if (animatedIcons[i]?.isComplete == true)
             {
                 animatedIcons[i].isComplete = false;
                 animatedIcons[i] = null;
 
-                if(i == 2)
+                if (i == 2)
                 {
                     timer = -1f;
                 }
@@ -100,9 +96,9 @@ public class StatusMeter : UIElement
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        if(!Active) return;
+        if (!Active) return;
 
-        for(int i = 0; i < icons.Count; i++)
+        for (int i = 0; i < icons.Count; i++)
         {
             spriteBatch.Draw(uiAtlas, icons[i].Position, icons[i].Sprite, icons[i].Color, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepth);
         }

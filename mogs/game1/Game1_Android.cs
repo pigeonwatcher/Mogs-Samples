@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 
-namespace ECS
+namespace Mogs
 {
     public partial class Game1 : Game
     {

@@ -1,10 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public class ShopFront : UIElement
 {
@@ -31,14 +25,14 @@ public class ShopFront : UIElement
 
     public override void AddChild<T>(T child)
     {
-        if(child is InteractiveInventory _inventory)
+        if (child is InteractiveInventory _inventory)
         {
             inventory = _inventory;
             inventory.Config(
             (item, input) => { },
             (item, input) =>
             {
-                if(shopService.PurchaseItem(shopData.ID, item.Index))
+                if (shopService.PurchaseItem(shopData.ID, item.Index))
                 {
                     inventory.Refresh(shopData.Inventory);
                 }
@@ -54,11 +48,11 @@ public class ShopFront : UIElement
         {
             coinCounter = _coinCounter;
         }
-        else if(child is UIEntityHandler _uiElementHandler)
+        else if (child is UIEntityHandler _uiElementHandler)
         {
             uiEntityHandler = _uiElementHandler;
         }
-        else if(child is UIEntity _uiEntity)
+        else if (child is UIEntity _uiEntity)
         {
             uiEntity = _uiEntity;
         }

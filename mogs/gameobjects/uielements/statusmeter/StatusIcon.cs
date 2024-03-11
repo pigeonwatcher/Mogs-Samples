@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public class StatusIcon
 {
@@ -52,7 +47,7 @@ public class StatusIcon
             Vector2 currentDirection = frames[frameIndex];
             Position += currentDirection;
 
-            frameIndex = (frameIndex + 1) % frames.Length; 
+            frameIndex = (frameIndex + 1) % frames.Length;
             timer = 0f;
         }
     }
