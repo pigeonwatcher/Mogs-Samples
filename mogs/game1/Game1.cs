@@ -6,9 +6,6 @@ namespace ECS
 {
     public partial class Game1 : Game
     {
-        public static bool IsItemDragging = false;
-        public static Random Rnd = new Random();
-
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
@@ -17,12 +14,6 @@ namespace ECS
         public ServiceManager ServiceManager { get; private set; }
         public EntityManager EntityManager { get; private set; }
 
-
-        private NodeFeatures nodeFeatures;
-        private WayFeatures wayFeatures;
-
-        private MapRenderSystem mapRenderSystem;
-        private MapElementSystem mapElementSystem;
         private EntityRenderSystem entityRenderSystem;
         private HungerSystem hungerSystem;
         private CatInteractionSystem catInteractionSystem;
@@ -36,18 +27,14 @@ namespace ECS
         private SceneManagementService sceneManagementService; 
         private InventoryService inventoryService;
         private ShopService shopService;
-        private CafeService cafeService;
         private CoffeeMachineService coffeeMachineService;
         private PlayerCatService playerCatService;
         private PalService palService;
-        private MapDataParser mapDataParser;
 
         private MainMenuScene mainMenuScene;
         private HomeScene homeScene;
         private ExploreScene exploreScene;
-        private MapScene mapScene;
         private ShopScene shopScene;
-        private CafeScene cafeScene;
         private HubMenuScene hubMenuScene;
         private CafeProgressScene cafeProgressScene;
         private ShopProgressScene shopProgressScene;
@@ -64,9 +51,6 @@ namespace ECS
             SystemManager = new SystemManager();
             ServiceManager = new ServiceManager();
 
-            nodeFeatures = new NodeFeatures();
-            wayFeatures = new WayFeatures();
-
             saveGameService = new SaveGameService();
             inputService = new InputService();
             sceneManagementService = new SceneManagementService();
@@ -74,11 +58,9 @@ namespace ECS
             uiManagementService = new UIManagementService();
             inventoryService = new InventoryService();
             shopService = new ShopService(inventoryService);
-            cafeService = new CafeService(inventoryService);
             coffeeMachineService = new CoffeeMachineService(inventoryService);
             playerCatService = new PlayerCatService();
             palService = new PalService(EntityManager, coffeeMachineService, inventoryService);
-            mapDataParser = new MapDataParser(nodeFeatures, wayFeatures);
 
             entityRenderSystem = new EntityRenderSystem();
             hungerSystem = new HungerSystem();
@@ -86,13 +68,10 @@ namespace ECS
             pettingAnimationSystem = new PettingAnimationSystem();
             emoteSystem = new EmoteSystem(catInteractionSystem);
             accessoryRenderSystem = new AccessorySystem();
-            mapElementSystem = new MapElementSystem(uiManagementService, sceneManagementService);
-            mapRenderSystem = new MapRenderSystem(nodeFeatures, wayFeatures, mapElementSystem);
 
             mainMenuScene = new MainMenuScene(this);
             homeScene = new HomeScene(this);
             exploreScene = new ExploreScene(this);
-            mapScene = new MapScene(this);
             shopScene = new ShopScene(this);
             cafeScene = new CafeScene(this);
             hubMenuScene = new HubMenuScene(this);
@@ -107,12 +86,8 @@ namespace ECS
             SystemManager.AddSystem(pettingAnimationSystem);
             SystemManager.AddSystem(emoteSystem);
             SystemManager.AddSystem(accessoryRenderSystem);
-            SystemManager.AddSystem(mapRenderSystem);
-            SystemManager.AddSystem(mapElementSystem);
 
             ServiceManager.AddService(saveGameService);
-            ServiceManager.AddService(nodeFeatures);
-            ServiceManager.AddService(wayFeatures);
             ServiceManager.AddService(EntityManager);
             ServiceManager.AddService(sceneManagementService);
             ServiceManager.AddService(uiManagementService);
@@ -122,12 +97,10 @@ namespace ECS
             ServiceManager.AddService(coffeeMachineService);
             ServiceManager.AddService(playerCatService);
             ServiceManager.AddService(palService);
-            ServiceManager.AddService(mapDataParser);
 
             sceneManagementService.AddScene(mainMenuScene);
             sceneManagementService.AddScene(homeScene);
             sceneManagementService.AddScene(exploreScene);
-            sceneManagementService.AddScene(mapScene);
             sceneManagementService.AddScene(shopScene);
             sceneManagementService.AddScene(cafeScene);
             sceneManagementService.AddScene(hubMenuScene);
