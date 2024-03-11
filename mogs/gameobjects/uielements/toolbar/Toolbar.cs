@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Toolbar : UIElement 
+public class Toolbar : UIElement
 {
     private List<Button> buttons = new List<Button>();
 
@@ -18,9 +18,9 @@ public class Toolbar : UIElement
         buttons[3].SetClickEvent(button4);
     }
 
-    public override void AddChild<T>(T child) 
+    public override void AddChild<T>(T child)
     {
-        if(child is Button button)
+        if (child is Button button)
         {
             buttons.Add(button);
         }

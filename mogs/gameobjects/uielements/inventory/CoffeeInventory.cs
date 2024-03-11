@@ -10,20 +10,20 @@ public class CoffeeInventory : UIElement
 {
     private readonly InventoryService inventoryService;
     private readonly CoffeeMachineService coffeeMachineService;
-    private readonly UIManagementService uiService;
+    private readonly UIManager uiManager;
 
     private Button grindButton;
     private ItemSlot itemSlot;
     private InteractiveInventory inventory;
     private Text namePanelText;
 
-    public CoffeeInventory(InventoryService _inventoryService, CoffeeMachineService _coffeeMachineService, UIManagementService _uiService)
+    public CoffeeInventory(InventoryService _inventoryService, CoffeeMachineService _coffeeMachineService, UIManager _uiManager)
     {
         SetLayer(Layer.UI_COFFEEINV);
 
         inventoryService = _inventoryService;
         coffeeMachineService = _coffeeMachineService;
-        uiService = _uiService;
+        uiManager = _uiManager;
     }
 
     public override void AddChild<T>(T child)
@@ -66,9 +66,9 @@ public class CoffeeInventory : UIElement
 
         base.Activate();
 
-        uiService.DeactivateUIElement<Toolbar>();
+        uiManager.DeactivateUIElement<Toolbar>();
 
-        uiService.SetModal(this, true);
+        uiManager.SetModal(this, true);
         grindButton.SetEnabled(false);
 
         inventoryService.InventoryUpdated += Refresh;
@@ -78,9 +78,9 @@ public class CoffeeInventory : UIElement
     {
         base.Deactivate();
 
-        uiService.ActivateUIElement<Toolbar>();
+        uiManager.ActivateUIElement<Toolbar>();
 
-        uiService.SetModal(this, false);
+        uiManager.SetModal(this, false);
         itemSlot.SetItem(null);
         namePanelText.SetText(null, Alignment.Center, Alignment.Center);
 

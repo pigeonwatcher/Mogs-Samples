@@ -1,11 +1,10 @@
-﻿using ECS;
+﻿using Mogs;
 using Microsoft.Xna.Framework.Graphics;
 
 public class HomeScene : GameScene
 {
     public HomeScene(Game1 game1) : base(game1) { }
 
-    private UIManagementService uiManagementService;
     private PalService palService;
 
     private PlayerCat playerCat;
@@ -13,7 +12,6 @@ public class HomeScene : GameScene
     public override void Initialise()
     {
         // Get Services.
-        uiManagementService = Game1.ServiceManager.GetService<UIManagementService>();
         palService = Game1.ServiceManager.GetService<PalService>();
 
         // Register Systems.
@@ -30,9 +28,9 @@ public class HomeScene : GameScene
         base.Load();
 
         _UIConfig = new HomeUIConfig(Game1.Resources, Game1.ServiceManager);
-        uiManagementService.SetConfig(_UIConfig);
-        uiManagementService.ActivateUIElement<Toolbar>();
-        uiManagementService.ActivateUIElement<StatusMeter>();
+        Game1.UIManager.SetConfig(_UIConfig);
+        Game1.UIManager.ActivateUIElement<Toolbar>();
+        Game1.UIManager.ActivateUIElement<StatusMeter>();
 
         palService.CheckPalVisit();
 

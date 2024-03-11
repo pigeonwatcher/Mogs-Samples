@@ -1,11 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
 
 public class SlideBox : UIElement
 {
@@ -33,7 +27,7 @@ public class SlideBox : UIElement
     private Point? swipePos = null;
 
     private RectangleF box;
-    
+
     private UIElement[] items;
     private Text slideText;
 
@@ -89,8 +83,8 @@ public class SlideBox : UIElement
         {
             slideIndex = 0;
         }
-        else if (slideIndex < 0) 
-        { 
+        else if (slideIndex < 0)
+        {
             slideIndex = SlideTotal;
         }
 
@@ -98,12 +92,12 @@ public class SlideBox : UIElement
         {
             int itemIndex = (i - itemsPerSlide) + (itemsPerSlide * slideIndex);
 
-            if (!items[i].Active || !items[i].Enabled) 
+            if (!items[i].Active || !items[i].Enabled)
             {
                 items[i].SetActive(true);
                 items[i].SetEnabled(true);
             }
-        
+
             if (slideIndex == 0)
             {
                 int start = itemAmount - (itemAmount % itemsPerSlide);
@@ -134,7 +128,7 @@ public class SlideBox : UIElement
                     continue;
                 }
 
-                if(i >= (itemsPerSlide * 2)) 
+                if (i >= (itemsPerSlide * 2))
                 {
                     int index = i % itemsPerSlide;
                     updateItem?.Invoke(items, i, index);
@@ -144,7 +138,7 @@ public class SlideBox : UIElement
                     updateItem?.Invoke(items, i, itemIndex);
                 }
             }
-            else if(slideIndex == SlideTotal - 1)
+            else if (slideIndex == SlideTotal - 1)
             {
                 if (itemIndex > itemAmount)
                 {
@@ -170,7 +164,7 @@ public class SlideBox : UIElement
         }
         else if (child is InteractiveElement item)
         {
-            for(int i = 0; i < items.Length; i++) 
+            for (int i = 0; i < items.Length; i++)
             {
                 if (items[i] == null)
                 {
@@ -198,7 +192,7 @@ public class SlideBox : UIElement
 
     public override void Update(GameTime gameTime)
     {
-        if(!Active) { return; }
+        if (!Active) { return; }
 
         if (swipePos == null)
         {
@@ -243,7 +237,7 @@ public class SlideBox : UIElement
             MoveElements(swipeDistance * Grid.SwipeSensitivity);
         }
 
-        if(state == State.Idle)
+        if (state == State.Idle)
         {
             for (int i = 0; i < items.Length; i++)
             {

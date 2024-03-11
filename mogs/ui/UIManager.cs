@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-public class UIManagementService : IUpdateService, IDrawService, ITouchService
+public class UIManager : ITouchService
 {
     private List<UIElement> elements = new List<UIElement>();
     private List<UIElement> modalElements = new List<UIElement>();

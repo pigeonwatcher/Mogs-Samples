@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-public class SceneManagementService : IUpdateService, IDrawService
+public class SceneManager : IService
 {
     public delegate void ModifyScene(GameScene scene);
 
