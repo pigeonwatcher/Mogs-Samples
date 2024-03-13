@@ -12,18 +12,18 @@ Meet all the pals! The player can keep track of which pals have visited through 
 ## Contents
 
 * Inventory [[1]](./mogs/services/InventoryService.cs) [[2]](./mogs/gameobjects/other/Items)
-* UI [[1]](./mogs/services/UIManagementService.cs) [[2]](./mogs/ui/elements)
+* UI [[1]](./mogs/ui/UIManager.cs) [[2]](./mogs/gameobjects/uielements)
 * Saving [[1]](./mogs/services/SaveGameService.cs)
 * Rendering with Custom Shader [[1]](./mogs/systems/EntityRenderSystem.cs) [[2]](./mogs/Content/catcolors.fx)
 * Emoji Animations [[1]](./mogs/systems/EmoteSystem.cs) [[2]](./mogs/gameobjects/other/emotes)
 * Shops [[1]](./mogs/services/ShopService.cs)
-* Scene Changing [[1]](./mogs/services/SceneManagementService.cs) [[2]](./mogs/scenes)
+* Scene Changing [[1]](./mogs/scenes/SceneManager.cs) [[2]](./mogs/scenes)
 * Cat Customisation [[1]](./mogs/systems/AccessorySystem.cs) [[2]](./mogs/gameobjects/other/accessories)
 * Hunger System [[1]](./mogs/systems/HungerSystem.cs)
 
 ## Background
 
-This project was an exciting portfolio piece to pursue, which I'd certainly want to complete and release someday. It was an excellent opportunity to learn and apply some design patterns such as the Factory, Observer, Service Locator, and Finite State Machines (FSM) - definitely recommend reading Robert Nystrom's "Game Programming Patterns"! In fact, solving problems concerning code architecture was certainly the most enlightening lesson I learned from this project (hence, my seemingly sudden desire to read Robert Nystrom).
+This project was an exciting portfolio piece to purr-sue, which I'd certainly want to complete and release someday. It was an excellent opportunity to learn and apply some design patterns such as the Factory, Observer, Service Locator, and Finite State Machines (FSM) - definitely worth reading Robert Nystrom's "Game Programming Patterns"! In fact, solving problems concerning code architecture was the most enlightening lesson I learned from this project (hence, my seemingly sudden desire to read Robert Nystrom).
 
 ## Future
 
